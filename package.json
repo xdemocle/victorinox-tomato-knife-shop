@@ -1,6 +1,5 @@
 {
   "name": "victorinox-tomato-knife-shop",
-  "private": true,
   "sideEffects": false,
   "type": "module",
   "scripts": {
