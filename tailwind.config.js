@@ -1,6 +1,4 @@
-import type { Config } from 'tailwindcss';
-
-// WARNING: don't change to common js
+/** @type {import('tailwindcss').Config} */
 export default {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
   theme: {
@@ -16,4 +14,4 @@ export default {
     },
   },
   plugins: [],
-} satisfies Config;
+};

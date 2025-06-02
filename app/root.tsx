@@ -7,12 +7,12 @@ import {
   ScrollRestoration,
 } from '@remix-run/react';
 import type { LinksFunction } from '@remix-run/node';
-import styles from './styles/tailwind.css';
+import tailwindStyles from './styles/tailwind.css?url';
 import { cssBundleHref } from '@remix-run/css-bundle';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
-  { rel: 'stylesheet', href: styles },
+  { rel: 'stylesheet', href: tailwindStyles },
   { rel: 'icon', href: '/favicon.ico' },
 ];
 

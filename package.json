@@ -1,9 +1,10 @@
 {
   "name": "victorinox-tomato-knife-shop",
   "sideEffects": false,
+  "type": "module",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev --manual",
+    "dev": "remix dev",
     "start": "remix-serve ./build/index.js",
     "typecheck": "tsc",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
