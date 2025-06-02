@@ -3,10 +3,8 @@
 @tailwind utilities;
 
 /* Custom styles for RTL support */
-[dir="rtl"] {
-  .reverse-flex {
-    flex-direction: row-reverse;
-  }
+[dir="rtl"] .reverse-flex {
+  flex-direction: row-reverse;
 }
 
 /* Custom animations */

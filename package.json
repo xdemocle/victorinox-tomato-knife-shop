@@ -1,6 +1,7 @@
 {
   "name": "victorinox-tomato-knife-shop",
   "sideEffects": false,
+  "private": true,
   "type": "module",
   "scripts": {
     "build": "remix build",
@@ -11,12 +12,12 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@remix-run/cloudflare": "^2.8.1",
-    "@remix-run/cloudflare-pages": "^2.8.1",
-    "@remix-run/css-bundle": "^2.8.1",
-    "@remix-run/node": "^2.8.1",
-    "@remix-run/react": "^2.8.1",
-    "@remix-run/serve": "^2.8.1",
+    "@remix-run/cloudflare": "^2.4.1",
+    "@remix-run/cloudflare-pages": "^2.4.1",
+    "@remix-run/css-bundle": "^2.4.1",
+    "@remix-run/node": "^2.4.1",
+    "@remix-run/react": "^2.4.1",
+    "@remix-run/serve": "^2.4.1",
     "@stripe/stripe-js": "^2.4.0",
     "framer-motion": "^11.0.5",
     "isbot": "^4.4.0",
@@ -26,7 +27,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240208.0",
-    "@remix-run/dev": "^2.8.1",
+    "@remix-run/dev": "^2.4.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",

@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 
+// WARNING: don't change to common js
 export default {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
   theme: {
