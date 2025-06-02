@@ -1,0 +1,237 @@
+# Victorinox Tomato Knife Shop - Windsurf AI Guide
+
+## 📋 Project Overview
+
+A modern e-commerce application for selling the Victorinox Tomato Knife featuring:
+
+- **Geo-based Pricing**: 40% discount for developing countries
+- **Random Color Selection**: Dynamic availability system
+- **Multi-language Support**: 8 languages (EN, DE, FR, ES, JA, KO, ZH-CN, AR)
+- **Stripe Integration**: Card, Google Pay, Apple Pay
+- **Technology**: Remix.js, Cloudflare Workers, TypeScript, Tailwind CSS
+
+## 🗂️ Project Structure
+
+```typescript
+victorinox-tomato-knife-shop/
+├── app/                     # Remix application
+│   ├── components/          # React components
+│   ├── routes/              # Route handlers and pages
+│   ├── utils/               # Utility functions
+│   └── styles/              # CSS and styling
+├── public/                  # Static assets
+│   └── images/              # Product images
+├── docs/                    # Documentation
+├── server.ts                # Cloudflare Workers entry
+└── package.json             # Dependencies and scripts
+```
+
+## 🚀 Quick Start for Windsurf AI
+
+```bash
+# 1. Install dependencies
+npm install
+
+# 2. Set up environment variables
+cp .env.example .env
+# Edit .env with your Stripe keys
+
+# 3. Start development server
+npm run dev
+```
+
+## 💡 AI Development Workflow
+
+### Effective AI Prompts by Category
+
+#### Component Development
+
+```plaintext
+"Create a ProductCard component that displays knife images, handles random color selection, and shows geo-based pricing"
+```
+
+#### Payment Integration
+
+```plaintext
+"Implement Stripe Checkout integration with support for multiple payment methods (Card, Google Pay, Apple Pay)"
+```
+
+#### Internationalization
+
+```plaintext
+"Add multi-language support for 8 languages with automatic detection and manual switching"
+```
+
+#### Best Practice: Be Specific
+
+Instead of:
+
+```plaintext
+"Add a button"
+```
+
+Use:
+
+```plaintext
+"Add a 'Buy Now' button to the ProductCard component that triggers Stripe checkout with the current product pricing and random color selection"
+```
+
+### Project-Specific Commands
+
+```plaintext
+// Ask AI about project structure
+@explain the pricing logic in utils/countries.ts
+
+// Get component suggestions
+@suggest improvements for the ProductCard component
+
+// Debug assistance
+@help debug the Stripe webhook verification issue
+
+// Code review
+@review this checkout implementation for security issues
+```
+
+### AI-Powered Refactoring
+
+```plaintext
+// Extract reusable logic
+@extract the geo-pricing logic into a custom hook
+
+// Improve type safety
+@add proper TypeScript types to the product data
+```
+
+### Code Generation with Context
+
+```plaintext
+// Generate with project context
+@generate a custom hook for the random color selection logic
+```
+
+## 🛠️ Development Scenarios
+
+### AI-Driven Testing
+
+```plaintext
+"Generate comprehensive tests for the pricing calculation logic"
+"Create integration tests for the Stripe checkout flow"
+"Write accessibility tests for the language selector"
+```
+
+### AI Code Review
+
+```plaintext
+"Review this component for potential security issues"
+"Analyze this pricing logic for edge cases"
+"Check this API route for proper error handling"
+```
+
+### Performance Optimization
+
+```plaintext
+"Implement lazy loading for non-critical components"
+"Optimize re-renders in the ProductCard component"
+"Add memoization where appropriate"
+```
+
+## 🔧 Troubleshooting
+
+### Common Issues & Solutions
+
+#### Stripe Integration
+
+```plaintext
+Problem: "Webhook verification failing"
+AI Prompt: "@debug webhook signature verification with raw body parsing"
+```
+
+#### Geolocation
+
+```plaintext
+Problem: "Country detection not working"
+AI Prompt: "@help implement fallback for geolocation when headers are missing"
+```
+
+#### Responsive Design
+
+```plaintext
+Problem: "Mobile layout breaking"
+AI Prompt: "@fix responsive design issues in ProductCard component"
+```
+
+### AI Error Analysis
+
+```plaintext
+"Analyze this error stack trace and suggest solutions"
+"Explain why this TypeScript error is occurring"
+"Help optimize this slow-running function"
+```
+
+## 📊 Quality Assurance
+
+### Performance Monitoring
+
+```plaintext
+"Analyze the current bundle size and suggest optimizations"
+"Review Core Web Vitals and recommend specific improvements"
+"Identify potential performance bottlenecks in the checkout flow"
+```
+
+### SEO Optimization
+
+```plaintext
+"Generate optimized meta tags for all pages"
+"Create structured data markup for the product"
+"Optimize images for better search engine indexing"
+```
+
+### Security Audit
+
+```plaintext
+"Audit the Stripe integration for security vulnerabilities"
+"Review environment variable handling for security best practices"
+"Check the webhook implementation for proper signature verification"
+```
+
+## 🎯 AI Best Practices
+
+### 1. Context Awareness
+
+- Always mention the single-product focus in prompts
+- Reference the geo-based pricing and random color system when relevant
+- Maintain consistency with existing patterns
+
+### 2. Consistent Code Style
+
+```plaintext
+"Follow the existing TypeScript and React patterns established in this project. Use the same naming conventions and component structure."
+```
+
+### 3. Integration Awareness
+
+```plaintext
+"Check the existing Stripe integration in /app/routes/checkout.tsx before generating payment-related code"
+```
+
+## 🔑 Windsurf AI Keyboard Shortcuts
+
+- `Ctrl/Cmd + K`: Open AI chat
+- `Ctrl/Cmd + Shift + K`: AI code completion
+- `Ctrl/Cmd + .`: Quick AI suggestions
+- `Ctrl/Cmd + Shift + .`: AI code actions
+
+### Custom AI Commands
+
+```plaintext
+// Set up custom commands in Windsurf
+@component: Generate a new React component
+@test: Generate tests for current file
+@docs: Generate documentation
+@refactor: Suggest refactoring improvements
+@debug: Help debug current issue
+```
+
+---
+
+**Remember**: Always review AI-generated code thoroughly and ensure it aligns with project requirements before committing changes.
