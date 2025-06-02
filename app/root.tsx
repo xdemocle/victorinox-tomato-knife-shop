@@ -5,15 +5,15 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
-import type { LinksFunction } from "@remix-run/node";
-import styles from "./styles/tailwind.css";
-import { cssBundleHref } from "@remix-run/css-bundle";
+} from '@remix-run/react';
+import type { LinksFunction } from '@remix-run/node';
+import styles from './styles/tailwind.css';
+import { cssBundleHref } from '@remix-run/css-bundle';
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-  { rel: "stylesheet", href: styles },
-  { rel: "icon", href: "/favicon.ico" },
+  ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
+  { rel: 'stylesheet', href: styles },
+  { rel: 'icon', href: '/favicon.ico' },
 ];
 
 export default function App() {

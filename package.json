@@ -1,7 +1,6 @@
 {
   "name": "victorinox-tomato-knife-shop",
   "sideEffects": false,
-  "private": true,
   "scripts": {
     "build": "remix build",
     "dev": "remix dev --manual",

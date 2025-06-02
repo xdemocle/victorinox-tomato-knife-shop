@@ -32,7 +32,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const acceptLanguage = request.headers.get('Accept-Language') || 'en';
   const detectedLang = acceptLanguage.split(',')[0].substring(0, 2);
   const pricing = getPricing(country);
-  
+
   return {
     country,
     language: detectedLang,
@@ -45,9 +45,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
 ```typescript
 interface IndexLoaderData {
-  country: string;           // ISO country code (e.g., 'US', 'DE')
-  language: string;          // Language code (e.g., 'en', 'de')
-  pricing: PricingData;      // Calculated pricing information
+  country: string; // ISO country code (e.g., 'US', 'DE')
+  language: string; // Language code (e.g., 'en', 'de')
+  pricing: PricingData; // Calculated pricing information
 }
 ```
 
@@ -55,10 +55,10 @@ interface IndexLoaderData {
 
 ```typescript
 export const meta: MetaFunction = () => [
-  { title: "Victorinox Tomato Knife - Professional Kitchen Tool" },
-  { name: "description", content: "Premium Victorinox tomato knife..." },
-  { property: "og:title", content: "Victorinox Tomato Knife" },
-  { property: "og:type", content: "product" },
+  { title: 'Victorinox Tomato Knife - Professional Kitchen Tool' },
+  { name: 'description', content: 'Premium Victorinox tomato knife...' },
+  { property: 'og:title', content: 'Victorinox Tomato Knife' },
+  { property: 'og:type', content: 'product' },
 ];
 ```
 
@@ -74,22 +74,24 @@ export const meta: MetaFunction = () => [
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
   const productData = JSON.parse(formData.get('product') as string);
-  
+
   const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-  
+
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
-    line_items: [{
-      price_data: {
-        currency: productData.currency.toLowerCase(),
-        product_data: {
-          name: productData.name,
-          images: ['/images/tomato-knife-hero.jpg'],
+    line_items: [
+      {
+        price_data: {
+          currency: productData.currency.toLowerCase(),
+          product_data: {
+            name: productData.name,
+            images: ['/images/tomato-knife-hero.jpg'],
+          },
+          unit_amount: Math.round(productData.price * 100),
         },
-        unit_amount: Math.round(productData.price * 100),
+        quantity: 1,
       },
-      quantity: 1,
-    }],
+    ],
     mode: 'payment',
     success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/`,
@@ -133,22 +135,22 @@ interface CheckoutRequest {
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const sessionId = url.searchParams.get('session_id');
-  
+
   if (sessionId) {
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    
+
     return {
       session: {
         id: session.id,
         amount_total: session.amount_total,
         currency: session.currency,
         customer_email: session.customer_details?.email,
-        payment_status: session.payment_status
-      }
+        payment_status: session.payment_status,
+      },
     };
   }
-  
+
   return { session: null };
 }
 ```
@@ -174,25 +176,28 @@ const session = await stripe.checkout.sessions.create({
       request_three_d_secure: 'automatic',
     },
   },
-  line_items: [{
-    price_data: {
-      currency: 'eur', // or 'usd'
-      product_data: {
-        name: 'Victorinox Tomato Knife',
-        description: 'Professional serrated knife for tomatoes',
-        images: ['/images/tomato-knife-hero.jpg'],
+  line_items: [
+    {
+      price_data: {
+        currency: 'eur', // or 'usd'
+        product_data: {
+          name: 'Victorinox Tomato Knife',
+          description: 'Professional serrated knife for tomatoes',
+          images: ['/images/tomato-knife-hero.jpg'],
+        },
+        unit_amount: 950, // €9.50 in cents
       },
-      unit_amount: 950, // €9.50 in cents
+      quantity: 1,
     },
-    quantity: 1,
-  }],
+  ],
   mode: 'payment',
   automatic_tax: { enabled: true },
   shipping_address_collection: {
-    allowed_countries: ['US', 'CA', 'GB', 'DE', 'FR', /* ... */],
+    allowed_countries: ['US', 'CA', 'GB', 'DE', 'FR' /* ... */],
   },
   billing_address_collection: 'required',
-  success_url: 'https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}',
+  success_url:
+    'https://yourdomain.com/success?session_id={CHECKOUT_SESSION_ID}',
   cancel_url: 'https://yourdomain.com/',
 });
 ```
@@ -200,10 +205,12 @@ const session = await stripe.checkout.sessions.create({
 ### Supported Payment Methods
 
 1. **Credit/Debit Cards**
+
    - Visa, Mastercard, American Express, Discover
    - 3D Secure authentication when required
 
 2. **Google Pay**
+
    - Automatic detection on supported browsers
    - One-click checkout experience
 
@@ -259,21 +266,21 @@ interface PricingCalculation {
 function getPricing(country: string): PricingCalculation {
   const isEurozone = EUROZONE_COUNTRIES.includes(country);
   const isDeveloped = isDevelopedCountry(country);
-  
-  const basePriceEUR = 9.50;
-  const basePriceUSD = 9.50;
-  
+
+  const basePriceEUR = 9.5;
+  const basePriceUSD = 9.5;
+
   const basePrice = isEurozone ? basePriceEUR : basePriceUSD;
   const currency = isEurozone ? 'EUR' : 'USD';
   const finalPrice = isDeveloped ? basePrice : basePrice * 0.6; // 40% discount
-  
+
   return {
     originalPrice: basePrice,
     finalPrice,
     currency,
     hasDiscount: !isDeveloped,
     discountPercentage: isDeveloped ? 0 : 40,
-    country
+    country,
   };
 }
 ```
@@ -283,7 +290,15 @@ function getPricing(country: string): PricingCalculation {
 ### Supported Languages
 
 ```typescript
-type SupportedLanguage = 'en' | 'de' | 'fr' | 'es' | 'ja' | 'ko' | 'zh-CN' | 'ar';
+type SupportedLanguage =
+  | 'en'
+  | 'de'
+  | 'fr'
+  | 'es'
+  | 'ja'
+  | 'ko'
+  | 'zh-CN'
+  | 'ar';
 
 interface LanguageConfig {
   code: SupportedLanguage;
@@ -339,11 +354,11 @@ function getTranslation(language: string, key: string): string {
   const langCode = language in translations ? language : 'en';
   const keys = key.split('.');
   let value = translations[langCode];
-  
+
   for (const k of keys) {
     value = value?.[k];
   }
-  
+
   return value || key;
 }
 ```
@@ -369,7 +384,7 @@ function getTranslation(language: string, key: string): string {
 export async function action({ request }: ActionFunctionArgs) {
   const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-  
+
   const body = await request.text();
   const signature = request.headers.get('stripe-signature');
 
@@ -378,7 +393,9 @@ export async function action({ request }: ActionFunctionArgs) {
     event = stripe.webhooks.constructEvent(body, signature, endpointSecret);
   } catch (err) {
     console.log('Webhook signature verification failed:', err.message);
-    return new Response('Webhook signature verification failed', { status: 400 });
+    return new Response('Webhook signature verification failed', {
+      status: 400,
+    });
   }
 
   switch (event.type) {
@@ -408,13 +425,13 @@ export async function action({ request }: ActionFunctionArgs) {
 async function handleSuccessfulPayment(session: any) {
   // 1. Log successful order
   console.log('Order completed:', session.id);
-  
+
   // 2. Send confirmation email (future implementation)
   // await sendOrderConfirmation(session.customer_details.email);
-  
+
   // 3. Update inventory (future implementation)
   // await updateInventory(session.line_items);
-  
+
   // 4. Notify fulfillment (future implementation)
   // await notifyFulfillmentCenter(session);
 }
@@ -460,7 +477,7 @@ enum ErrorType {
   GEOLOCATION_ERROR = 'geolocation_error',
   TRANSLATION_ERROR = 'translation_error',
   WEBHOOK_ERROR = 'webhook_error',
-  INTERNAL_ERROR = 'internal_error'
+  INTERNAL_ERROR = 'internal_error',
 }
 ```
 
@@ -469,25 +486,31 @@ enum ErrorType {
 ```typescript
 // Validation Error
 if (!productData.price || productData.price <= 0) {
-  throw new Response(JSON.stringify({
-    error: {
-      type: 'validation_error',
-      message: 'Product price must be greater than 0'
-    }
-  }), { status: 400 });
+  throw new Response(
+    JSON.stringify({
+      error: {
+        type: 'validation_error',
+        message: 'Product price must be greater than 0',
+      },
+    }),
+    { status: 400 }
+  );
 }
 
 // Payment Error
 try {
   const session = await stripe.checkout.sessions.create(sessionData);
 } catch (error) {
-  throw new Response(JSON.stringify({
-    error: {
-      type: 'payment_error',
-      message: 'Failed to create checkout session',
-      details: error.message
-    }
-  }), { status: 500 });
+  throw new Response(
+    JSON.stringify({
+      error: {
+        type: 'payment_error',
+        message: 'Failed to create checkout session',
+        details: error.message,
+      },
+    }),
+    { status: 500 }
+  );
 }
 ```
 
@@ -553,7 +576,7 @@ enum OrderStatus {
   PENDING = 'pending',
   COMPLETED = 'completed',
   FAILED = 'failed',
-  REFUNDED = 'refunded'
+  REFUNDED = 'refunded',
 }
 ```
 
@@ -614,14 +637,14 @@ interface Environment {
 // Test Countries
 const TEST_COUNTRIES = {
   DEVELOPED: ['US', 'DE', 'GB', 'FR'],
-  DEVELOPING: ['IN', 'BR', 'NG', 'PK']
+  DEVELOPING: ['IN', 'BR', 'NG', 'PK'],
 };
 
 // Test Stripe Cards
 const TEST_CARDS = {
   SUCCESS: '4242424242424242',
   DECLINE: '4000000000000002',
-  REQUIRE_AUTH: '4000002500003155'
+  REQUIRE_AUTH: '4000002500003155',
 };
 ```
 

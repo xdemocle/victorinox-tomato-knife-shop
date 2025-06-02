@@ -14,14 +14,14 @@ graph TB
     C --> E[Geolocation Service]
     D --> F[Webhook Handler]
     F --> G[Order Processing]
-    
+
     subgraph "Cloudflare Workers"
         C
         E
         F
         G
     end
-    
+
     subgraph "Third-Party Services"
         D
         H[Google Pay]
@@ -120,7 +120,7 @@ sequenceDiagram
     participant R as Remix App
     participant S as Stripe
     participant W as Webhook
-    
+
     U->>R: Click Buy Now
     R->>S: Create Checkout Session
     S->>U: Redirect to Checkout
@@ -373,11 +373,11 @@ interface Environment {
   STRIPE_SECRET_KEY: string;
   STRIPE_PUBLISHABLE_KEY: string;
   STRIPE_WEBHOOK_SECRET: string;
-  
+
   // Application
   NODE_ENV: 'development' | 'production';
   APP_URL: string;
-  
+
   // Optional
   GOOGLE_ANALYTICS_ID?: string;
   SENTRY_DSN?: string;

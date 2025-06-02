@@ -8,22 +8,66 @@ export const colorVariants = [
   { name: 'pink', image: '/images/tomato-knife-pink.jpg', hex: '#ec4899' },
   { name: 'yellow', image: '/images/tomato-knife-yellow.jpg', hex: '#eab308' },
   { name: 'green', image: '/images/tomato-knife-green.jpg', hex: '#16a34a' },
-  { name: 'orange', image: '/images/tomato-knife-orange.jpg', hex: '#ea580c' }
+  { name: 'orange', image: '/images/tomato-knife-orange.jpg', hex: '#ea580c' },
 ];
 
 // Gallery images for the product showcase
 export const galleryImages = [
-  { id: 'hero', src: '/images/tomato-knife-hero.jpg', alt: 'Victorinox Tomato Knife Hero Shot' },
-  { id: 'studio1', src: '/images/tomato-knife-studio-1.jpg', alt: 'Studio Shot 1' },
-  { id: 'studio2', src: '/images/tomato-knife-studio-2.jpg', alt: 'Studio Shot 2' },
-  { id: 'studio3', src: '/images/tomato-knife-studio-3.jpg', alt: 'Studio Shot 3' },
-  { id: 'cutting1', src: '/images/tomato-knife-cutting-tomato.jpg', alt: 'Cutting Tomato' },
-  { id: 'cutting2', src: '/images/tomato-knife-cutting-bread.jpg', alt: 'Cutting Bread' },
-  { id: 'scene', src: '/images/tomato-knife-kitchen-scene.jpg', alt: 'Kitchen Scene' },
-  { id: 'blade', src: '/images/tomato-knife-detail-blade.jpg', alt: 'Blade Detail' },
-  { id: 'handle', src: '/images/tomato-knife-detail-handle.jpg', alt: 'Handle Detail' },
-  { id: 'packaging', src: '/images/tomato-knife-packaging.jpg', alt: 'Product Packaging' },
-  { id: 'lifestyle', src: '/images/tomato-knife-lifestyle.jpg', alt: 'Lifestyle Shot' }
+  {
+    id: 'hero',
+    src: '/images/tomato-knife-hero.jpg',
+    alt: 'Victorinox Tomato Knife Hero Shot',
+  },
+  {
+    id: 'studio1',
+    src: '/images/tomato-knife-studio-1.jpg',
+    alt: 'Studio Shot 1',
+  },
+  {
+    id: 'studio2',
+    src: '/images/tomato-knife-studio-2.jpg',
+    alt: 'Studio Shot 2',
+  },
+  {
+    id: 'studio3',
+    src: '/images/tomato-knife-studio-3.jpg',
+    alt: 'Studio Shot 3',
+  },
+  {
+    id: 'cutting1',
+    src: '/images/tomato-knife-cutting-tomato.jpg',
+    alt: 'Cutting Tomato',
+  },
+  {
+    id: 'cutting2',
+    src: '/images/tomato-knife-cutting-bread.jpg',
+    alt: 'Cutting Bread',
+  },
+  {
+    id: 'scene',
+    src: '/images/tomato-knife-kitchen-scene.jpg',
+    alt: 'Kitchen Scene',
+  },
+  {
+    id: 'blade',
+    src: '/images/tomato-knife-detail-blade.jpg',
+    alt: 'Blade Detail',
+  },
+  {
+    id: 'handle',
+    src: '/images/tomato-knife-detail-handle.jpg',
+    alt: 'Handle Detail',
+  },
+  {
+    id: 'packaging',
+    src: '/images/tomato-knife-packaging.jpg',
+    alt: 'Product Packaging',
+  },
+  {
+    id: 'lifestyle',
+    src: '/images/tomato-knife-lifestyle.jpg',
+    alt: 'Lifestyle Shot',
+  },
 ];
 
 interface ProductCardProps {
@@ -34,20 +78,28 @@ interface ProductCardProps {
   locale: string;
 }
 
-export function ProductCard({ availableColor, price, currency, isDiscounted, locale }: ProductCardProps) {
+export function ProductCard({
+  availableColor,
+  price,
+  currency,
+  isDiscounted,
+  locale,
+}: ProductCardProps) {
   const [currentImage, setCurrentImage] = useState(galleryImages[0]);
   const currencySymbol = currency === 'EUR' ? '€' : '$';
   const formattedPrice = new Intl.NumberFormat(locale, {
     style: 'currency',
-    currency: currency
+    currency: currency,
   }).format(price);
 
-  const availableVariant = colorVariants.find(variant => variant.name === availableColor);
+  const availableVariant = colorVariants.find(
+    (variant) => variant.name === availableColor
+  );
 
   return (
     <div className="max-w-4xl mx-auto p-4">
       {/* Main Product Image */}
-      <motion.div 
+      <motion.div
         className="relative aspect-square rounded-lg overflow-hidden mb-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
